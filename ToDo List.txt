@@ -1,0 +1,29 @@
+Stopwatch - Main activity
+	1 start button - completed
+	1 stop button - completed
+		2 combine start and stop - to be
+	1 reset button - completed
+	1 time display - partial
+		1 automatically set timer for exercise rest time - to be
+	1 exercise display - partial
+		2 split exercises and sets/reps/weight - to be
+	1 button to exercise activity - completed
+	1 button to read file - completed
+Exercises - Exercises activity
+	1 user input window - partial
+		1 group exercise with sets/reps/weight - to be
+		2 number slider for sets/reps/weight/rest-time - to be
+	1 save button - completed
+		1 save to user input to file - completed
+		2 finish activity - completed
+Alerts/Notifications
+	2 timer continues in notification window - to be
+	2 timer alert when rest time over - to be
+Miscellanious
+	3 voice activation by user when exercise is done - to be
+	4 aesthetics - meh
+
+numbered by priority
+	
+
+	
