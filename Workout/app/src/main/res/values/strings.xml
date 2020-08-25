@@ -1,0 +1,21 @@
+<resources>
+<!--    Main activity strings-->
+    <string name="app_name">Personalised Stopwatch</string>
+    <string name="timerHint">Press Start</string>
+    <string name="startBtn">Start</string>
+    <string name="resetBtn">Reset</string>
+    <string name="workoutBtn">Workout</string>
+    <string name="readBtn">Read</string>
+    <!--    Workout activity strings-->
+    <string name="exerciseHint">Exercise</string>
+    <string name="setsHint">Sets</string>
+    <string name="createBtn">Create</string>
+    <string name="timerBtn">Timer</string>
+<!--    Exercise activity strings-->
+    <string name="repsHint">Reps</string>
+    <string name="weightHint">Weight</string>
+    <string name="timeHint">Time</string>
+    <string name="saveBtn">Save</string>
+    <string name="rightBtn">Right</string>
+    <string name="leftBtn">Left</string>
+</resources>

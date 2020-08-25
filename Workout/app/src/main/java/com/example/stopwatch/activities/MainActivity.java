@@ -1,4 +1,4 @@
-package com.example.stopwatch;
+package com.example.stopwatch.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.stopwatch.R;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -82,7 +85,17 @@ public class MainActivity extends AppCompatActivity {
     // Below method gets called
     // when the Start button  is clicked
     public void onClickStart(View view) {
-        running = true;
+        final Button startStop = (Button)findViewById(R.id.start_stop);
+//        startStop.setText("Stop");
+//        running = true;
+
+        if (running == true) {
+            running = false;
+            startStop.setText("Start");
+        } else {
+            running = true;
+            startStop.setText("Stop");
+        }
     }
 
     // Stop the stopwatch running
@@ -148,8 +161,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Begin and switch to the Exercises activity when Exercises button is clicked.
-    public void onClickExercises(View view)  {
-        Intent intent = new Intent(this, Exercises.class);
+    public void onClickWorkout(View view)  {
+        Intent intent = new Intent(this, Workout.class);
         startActivity(intent);
     }
 
