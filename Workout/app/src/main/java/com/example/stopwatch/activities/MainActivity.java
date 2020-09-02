@@ -160,13 +160,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // Begin and switch to the Exercises activity when Exercises button is clicked.
+    // Begin and switch to the Exercise activity when 'Workout' button is clicked.
     public void onClickWorkout(View view)  {
         Intent intent = new Intent(this, Workout.class);
         startActivity(intent);
     }
 
-    // Read the exercises file when Read button is clicked.
+    // Read the exercises file when 'Read' button is clicked.
     public void onClickRead(View view) {
         TextView exerciseView = (TextView)findViewById(R.id.exercises_view);
         String fileName = "exercises";

@@ -16,7 +16,6 @@ import java.util.List;
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
     private List<SetsModel> sets;
     private LayoutInflater mInflater;
-    private ItemClickListener mClickListener;
 
     // data is passed into the constructor
     MyRecyclerViewAdapter(Context context, List<SetsModel> data) {
@@ -47,7 +46,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         return sets.size();
     }
 
-
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         EditText reps;
@@ -59,27 +57,22 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             reps = itemView.findViewById(R.id.setReps);
             weight = itemView.findViewById(R.id.setWeight);
             time = itemView.findViewById(R.id.setTime);
-            itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
     }
 
-    // convenience method for getting data at click position
-    SetsModel getItem(int id) {
-        return sets.get(id);
+    public void insertAt(int position) {
+        sets.add(new SetsModel());
+        notifyItemInserted(position);
+        notifyItemRangeChanged(position, sets.size());
     }
 
-    // allows clicks events to be caught
-    void setClickListener(ItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
-    }
-
-    // parent activity will implement this method to respond to click events
-    public interface ItemClickListener {
-        void onItemClick(View view, int position);
+    public void removeAt(int position) {
+        sets.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, sets.size());
     }
 }

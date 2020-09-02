@@ -15,7 +15,10 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="@string/repsHint"
-            android:inputType="number" />
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:nextFocusRight="@+id/setWeight"
+            android:selectAllOnFocus="true" />
 
         <EditText
             android:id="@+id/setWeight"
@@ -24,7 +27,10 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="@string/weightHint"
-            android:inputType="number" />
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:nextFocusRight="@+id/setTime"
+            android:selectAllOnFocus="true" />
 
         <EditText
             android:id="@+id/setTime"
@@ -32,7 +38,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="@string/startBtn"
-            android:inputType="number" />
+            android:hint="@string/timeHint"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:selectAllOnFocus="true" />
     </LinearLayout>
 </LinearLayout>

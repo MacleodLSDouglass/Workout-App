@@ -7,7 +7,7 @@
     tools:context=".Exercise">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/exerciseAndSets"
         android:layout_width="409dp"
         android:layout_height="60dp"
         android:layout_marginStart="1dp"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/exerciseTextExercise"
+            android:id="@+id/exerciseEdit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -27,18 +27,19 @@
             android:hint="@string/exerciseHint"
             android:imeOptions="actionNext"
             android:inputType="textPersonName"
-            android:nextFocusRight="@+id/setNumberExercise" />
+            android:nextFocusRight="@+id/setsEdit"
+            android:selectAllOnFocus="true" />
 
         <EditText
-            android:id="@+id/setNumberExercise"
+            android:id="@+id/setsEdit"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:ems="10"
             android:hint="@string/setsHint"
-            android:imeOptions="actionNext"
+            android:imeOptions="actionDone"
             android:inputType="number"
-            android:nextFocusDown="@+id/repNumber" />
+            android:selectAllOnFocus="true" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -50,7 +51,7 @@
         android:layout_marginEnd="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/exerciseAndSets" />
 
     <Button
         android:id="@+id/rightBtn"
@@ -58,6 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="85dp"
+        android:onClick="onClickInsert"
         android:text="@string/rightBtn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -68,6 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginBottom="85dp"
+        android:onClick="onClickRemove"
         android:text="@string/leftBtn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

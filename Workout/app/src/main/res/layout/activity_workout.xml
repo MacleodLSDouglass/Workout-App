@@ -35,7 +35,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/exerciseTextExercise"
+            android:id="@+id/exerciseEdit"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -44,7 +44,7 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/setNumberExercise"
+            android:id="@+id/setsEdit"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"

@@ -15,9 +15,6 @@
             ></activity>
         <activity android:name=".activities.Workout" />
         <activity
-            android:name=".Exercises"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
             android:name=".activities.MainActivity"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>

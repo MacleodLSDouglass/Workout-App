@@ -5,6 +5,8 @@ public class SetsModel {
     public int weight;
     public int time;
 
+    public SetsModel(){}
+
     public SetsModel(int reps, int weight, int time) {
         this.reps = reps;
         this.weight = weight;
