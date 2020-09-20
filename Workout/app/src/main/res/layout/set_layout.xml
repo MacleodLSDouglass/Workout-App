@@ -18,7 +18,8 @@
             android:imeOptions="actionNext"
             android:inputType="number"
             android:nextFocusRight="@+id/setWeight"
-            android:selectAllOnFocus="true" />
+            android:selectAllOnFocus="true"
+            android:textAlignment="center" />
 
         <EditText
             android:id="@+id/setWeight"
@@ -30,7 +31,8 @@
             android:imeOptions="actionNext"
             android:inputType="number"
             android:nextFocusRight="@+id/setTime"
-            android:selectAllOnFocus="true" />
+            android:selectAllOnFocus="true"
+            android:textAlignment="center" />
 
         <EditText
             android:id="@+id/setTime"
@@ -41,6 +43,7 @@
             android:hint="@string/timeHint"
             android:imeOptions="actionNext"
             android:inputType="number"
-            android:selectAllOnFocus="true" />
+            android:selectAllOnFocus="true"
+            android:textAlignment="center" />
     </LinearLayout>
 </LinearLayout>
