@@ -1,24 +1,29 @@
 Stopwatch - Main activity
+	1 set title to workout name - done
 	1 start button - done
 	1 stop button - done
 		2 combine start and stop - done
 	1 reset button - partial
 		2 one click to reset current exercise - to be
 		2 double click to reset workout - to be
-	1 time display - partial
-		1 automatically set timer for exercise rest time - to be
+	1 time display - done
+		1 automatically set timer for exercise rest time - done
 	1 exercise display - done
 		2 split exercises and sets/reps/weight - done
 	1 button to exercise activity - done
 	1 read file when starting start page - done
+	1 button to create new csv file for new workout - done
+	1 dropdown/popup workout selector - done
+	2 expand and highlight current exercise - done
+	2 highlight current set - to be
 	2 expand and collapse exercise sets when clicked - to be
 Workout - Workout activity
-	1 create button leading to Exercises activity - to be
+	1 create button leading to Exercises activity - done
 	1 display for number of exercises - to be
 	1 window to select each exercise - done
 Exercises - Exercises activity
 	1 user input window - partial
-		1 group exercise with sets/reps/weight - v
+		1 group exercise with sets/reps/weight - done
 		2 number slider for sets/reps/weight/rest-time - to be
 	1 save button - done
 		1 save to user input to file - done
@@ -34,6 +39,3 @@ Miscellanious
 	4 aesthetics - meh
 
 numbered by priority
-	
-
-	

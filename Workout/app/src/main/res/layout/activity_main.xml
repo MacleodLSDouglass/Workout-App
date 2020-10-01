@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity">
+    tools:context=".activities.MainActivity.MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/workoutRec"
+        android:id="@+id/exerciseRec"
         android:layout_width="0dp"
         android:layout_height="500dp"
         android:layout_marginStart="16dp"
@@ -29,7 +29,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/workoutRec" />
+        app:layout_constraintTop_toBottomOf="@+id/exerciseRec" />
 
     <Button
         android:id="@+id/MainStartStopBtn"
@@ -64,13 +64,24 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <Spinner
+        android:id="@+id/workoutSpinner"
+        android:layout_width="130dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="36dp"
-        android:text="@string/readBtn"
+        android:layout_marginStart="38dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="onClickCreate"
+        android:text="@string/createBtn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

@@ -3,47 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/setReps"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="@string/repsHint"
+        android:imeOptions="actionNext"
+        android:inputType="number"
+        android:nextFocusRight="@+id/setWeight"
+        android:selectAllOnFocus="true"
+        android:textAlignment="center" />
 
-        <EditText
-            android:id="@+id/setReps"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/repsHint"
-            android:imeOptions="actionNext"
-            android:inputType="number"
-            android:nextFocusRight="@+id/setWeight"
-            android:selectAllOnFocus="true"
-            android:textAlignment="center" />
+    <EditText
+        android:id="@+id/setWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="@string/weightHint"
+        android:imeOptions="actionNext"
+        android:inputType="number"
+        android:nextFocusRight="@+id/setTime"
+        android:selectAllOnFocus="true"
+        android:textAlignment="center" />
 
-        <EditText
-            android:id="@+id/setWeight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/weightHint"
-            android:imeOptions="actionNext"
-            android:inputType="number"
-            android:nextFocusRight="@+id/setTime"
-            android:selectAllOnFocus="true"
-            android:textAlignment="center" />
-
-        <EditText
-            android:id="@+id/setTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/timeHint"
-            android:imeOptions="actionNext"
-            android:inputType="number"
-            android:selectAllOnFocus="true"
-            android:textAlignment="center" />
-    </LinearLayout>
+    <EditText
+        android:id="@+id/setTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="@string/timeHint"
+        android:imeOptions="actionNext"
+        android:inputType="number"
+        android:selectAllOnFocus="true"
+        android:textAlignment="center" />
 </LinearLayout>

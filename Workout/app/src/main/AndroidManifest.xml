@@ -11,12 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.Exercise"
+            android:name=".activities.Exercise.Exercise"
             android:windowSoftInputMode="stateVisible"
             ></activity>
-        <activity android:name=".activities.Workout" />
+        <activity android:name=".activities.Workout.Workout" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.MainActivity.MainActivity"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

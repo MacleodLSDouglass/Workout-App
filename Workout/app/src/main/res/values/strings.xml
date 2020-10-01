@@ -16,6 +16,7 @@
     <string name="weightHint">Weight</string>
     <string name="timeHint">Time</string>
     <string name="saveBtn">Save</string>
+    <string name="deleteBtn">Delete</string>
     <string name="rightBtn">Right</string>
     <string name="leftBtn">Left</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.stopwatch.activities;
+package com.example.stopwatch.activities.Exercise;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,6 +21,7 @@ import com.example.stopwatch.Application;
 import com.example.stopwatch.R;
 import com.example.stopwatch.models.ExerciseModel;
 import com.example.stopwatch.models.SetModel;
+import com.example.stopwatch.models.WorkoutModel;
 
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -32,11 +33,11 @@ public class Exercise extends AppCompatActivity {
     private EditText setsEdit;
     private TextView currentIndexDisplay;
 
-    private Adapter adapter;
+    private ExerciseAdapter adapter;
     private RecyclerView recView;
 
     private int currentIndex;
-    private ArrayList<ExerciseModel> workout;
+    private WorkoutModel workout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class Exercise extends AppCompatActivity {
         setsEdit = findViewById(R.id.setsEdit);
         currentIndexDisplay = findViewById(R.id.exerciseIndex);
 
-        recView = findViewById(R.id.workoutRec);
+        recView = findViewById(R.id.exerciseRec);
 
         // recover information passed on by previous activity "Workout"
         currentIndex = getIntent().getIntExtra("index", -1);
@@ -65,8 +66,15 @@ public class Exercise extends AppCompatActivity {
 
     // activates when the save button is clicked. finished activity to go back to "Workout"
     // activity
-    public void onClickFinish(View view)  {
+    public void onClickSave(View view)  {
         if(!save()) {
+            return;
+        }
+        finish();
+    }
+
+    public void onClickDelete(View view) {
+        if(!delete()) {
             return;
         }
         finish();
@@ -99,7 +107,7 @@ public class Exercise extends AppCompatActivity {
         currentIndex += 1;
         // finish and go back to previous activity if trying to go above the number of items in
         // the file collection
-        if(currentIndex == workout.size() ) {
+        if(currentIndex == workout.exercises.size() ) {
             finish();
             return;
         }
@@ -108,7 +116,7 @@ public class Exercise extends AppCompatActivity {
     }
 
     private void InitialiseRecycler() {
-        ExerciseModel exercise = workout.get(currentIndex);
+        ExerciseModel exercise = workout.exercises.get(currentIndex);
 
         try {
             exerciseEdit.setText(exercise.exercise);
@@ -121,7 +129,7 @@ public class Exercise extends AppCompatActivity {
         // initialise the RecyclerView with required LinearLayoutManager and Adapter, along with
         // the collection of SetModel objects
         recView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new Adapter(this, exercise.sets);
+        adapter = new ExerciseAdapter(this, exercise.sets);
         recView.setAdapter(adapter);
 
         // listener to clear EditView focus when clicking done on the keyboard when focusing
@@ -208,8 +216,6 @@ public class Exercise extends AppCompatActivity {
     }
 
     private boolean save() {
-        final String FILENAME = "workout.csv";
-
         // get and check exercise name
         String exerciseName = exerciseEdit.getText().toString();
         if(exerciseName.isEmpty()) {
@@ -218,8 +224,12 @@ public class Exercise extends AppCompatActivity {
             return false;
         }
 
-        workout.get(currentIndex).exercise = exerciseName;
-        workout.get(currentIndex).sets = new ArrayList<>();
+        try {
+            workout.exercises.get(currentIndex).exercise = exerciseName;
+        } catch (Exception e) {
+            return true;
+        }
+        workout.exercises.get(currentIndex).sets = new ArrayList<>();
 
         // get text from all EditText from all items in the RecyclerView and update the
         // appropriate objects in the existing application.workout object that can be accessed
@@ -232,17 +242,30 @@ public class Exercise extends AppCompatActivity {
                 EditText weight = vHolder.itemView.findViewById(R.id.setWeight);
                 EditText time = vHolder.itemView.findViewById(R.id.setTime);
 
-                workout.get(currentIndex).sets.add(a, new SetModel(
+                workout.exercises.get(currentIndex).sets.add(a, new SetModel(
                         Integer.parseInt(reps.getText().toString()),
                         Integer.parseInt(weight.getText().toString()),
                         Integer.parseInt(time.getText().toString())));
             }
         }
 
+        toFile();
+        return true;
+    }
+
+    private boolean delete() {
+        workout.exercises.remove(currentIndex);
+        toFile();
+        return true;
+    }
+
+    private void toFile() {
+        final String FILENAME = workout.workout + ".csv";
+
         // create string that will be written to file
         String toWrite = "";
         // take each ExerciseModel in the Application.workout object
-        for(ExerciseModel exercise: workout) {
+        for(ExerciseModel exercise: workout.exercises) {
             // add the exercise name
             toWrite += exercise.exercise;
             // add each set and respective values
@@ -259,72 +282,6 @@ public class Exercise extends AppCompatActivity {
             fos.write(toWrite.getBytes());
         } catch (Exception e)  {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-
-        return true;
-    }
-
-    // ----------------------------------------------------------------------------------------
-    // adapter class for recycler
-    private class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private List<SetModel> sets;
-        private LayoutInflater mInflater;
-
-        // data is passed into the constructor
-        Adapter(Context context, List<SetModel> data) {
-            this.mInflater = LayoutInflater.from(context);
-            this.sets = data;
-        }
-
-        // inflates the row layout from xml when needed
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = mInflater.inflate(R.layout.set_layout, parent, false);
-            return new Adapter.ViewHolder(view);
-        }
-
-        // binds the data to the TextView in each row
-        @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            Adapter.ViewHolder nHolder = (Adapter.ViewHolder) holder;
-
-            SetModel set = sets.get(position);
-
-            nHolder.reps.setText(String.valueOf(set.reps));
-            nHolder.weight.setText(String.valueOf(set.weight));
-            nHolder.time.setText(String.valueOf(set.time));
-        }
-
-        // total number of rows
-        @Override
-        public int getItemCount() {
-            return sets.size();
-        }
-
-        // stores and recycles views as they are scrolled off screen
-        private class ViewHolder extends RecyclerView.ViewHolder {
-            EditText reps;
-            EditText weight;
-            EditText time;
-
-            ViewHolder(View itemView) {
-                super(itemView);
-                reps = itemView.findViewById(R.id.setReps);
-                weight = itemView.findViewById(R.id.setWeight);
-                time = itemView.findViewById(R.id.setTime);
-            }
-        }
-
-        public void insertAt(int position) {
-            sets.add(new SetModel());
-            notifyItemInserted(position);
-            notifyItemRangeChanged(position, sets.size());
-        }
-
-        public void removeAt(int position) {
-            sets.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, sets.size());
         }
     }
 }
