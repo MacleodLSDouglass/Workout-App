@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.Exercise.Exercise">
+    tools:context=".activities.Exercise.ExerciseActivity">
 
     <LinearLayout
         android:id="@+id/exerciseAndSets"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/exerciseEdit"
+            android:id="@+id/exerciseExerciseEdit"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -27,11 +27,11 @@
             android:hint="@string/exerciseHint"
             android:imeOptions="actionNext"
             android:inputType="textPersonName"
-            android:nextFocusRight="@+id/setsEdit"
+            android:nextFocusRight="@+id/exerciseSetsEdit"
             android:selectAllOnFocus="true" />
 
         <EditText
-            android:id="@+id/setsEdit"
+            android:id="@+id/exerciseSetsEdit"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -46,7 +46,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
@@ -56,47 +56,50 @@
         app:layout_constraintTop_toBottomOf="@+id/exerciseAndSets">
 
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
+            android:id="@+id/exerciseRepsTxt"
+            android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/repsHint"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+            android:id="@+id/exerciseWeightTxt"
+            android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/weightHint"
-            android:textAlignment="center" />
+            android:text="@string/weightKgHint"
+            android:textAlignment="center"
+            android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
+            android:id="@+id/exerciseTimeTxt"
+            android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/timeHint"
             android:textAlignment="center"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/exerciseRec"
+        android:id="@+id/mainRec"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/exerciseIndex"
+        app:layout_constraintBottom_toTopOf="@+id/workoutIndex"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <Button
-        android:id="@+id/rightBtn"
+        android:id="@+id/exerciseRightBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
@@ -107,7 +110,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/leftBtn"
+        android:id="@+id/exerciseLeftBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -118,7 +121,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/saveBtn"
+        android:id="@+id/exerciseSaveBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -128,20 +131,20 @@
         android:text="@string/saveBtn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button" />
+        app:layout_constraintStart_toEndOf="@+id/exerciseDeleteBtn" />
 
     <TextView
-        android:id="@+id/exerciseIndex"
+        android:id="@+id/workoutIndex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:text="1"
-        app:layout_constraintBottom_toTopOf="@+id/saveBtn"
-        app:layout_constraintEnd_toStartOf="@+id/rightBtn"
-        app:layout_constraintStart_toEndOf="@+id/leftBtn" />
+        app:layout_constraintBottom_toTopOf="@+id/exerciseSaveBtn"
+        app:layout_constraintEnd_toStartOf="@+id/exerciseRightBtn"
+        app:layout_constraintStart_toEndOf="@+id/exerciseLeftBtn" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/exerciseDeleteBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -151,7 +154,7 @@
         android:text="@string/deleteBtn"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/saveBtn"
+        app:layout_constraintEnd_toStartOf="@+id/exerciseSaveBtn"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

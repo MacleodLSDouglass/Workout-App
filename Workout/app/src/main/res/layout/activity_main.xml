@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity.MainActivity">
+    tools:context=".activities.Main.MainActivity"
+    android:keepScreenOn="true">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/exerciseRec"
+        android:id="@+id/mainRec"
         android:layout_width="0dp"
         android:layout_height="500dp"
         android:layout_marginStart="16dp"
@@ -18,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/time_view"
+        android:id="@+id/mainTimeTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -29,10 +30,10 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exerciseRec" />
+        app:layout_constraintTop_toBottomOf="@+id/mainRec" />
 
     <Button
-        android:id="@+id/MainStartStopBtn"
+        android:id="@+id/mainStartStopBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -40,49 +41,60 @@
         android:text="@string/startBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/time_view" />
+        app:layout_constraintTop_toBottomOf="@+id/mainTimeTxt" />
 
     <Button
-        android:id="@+id/MainResetBtn"
+        android:id="@+id/mainResetBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="24dp"
         android:onClick="onClickReset"
         android:text="@string/resetBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MainStartStopBtn" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/mainSkipBtn"
+        app:layout_constraintStart_toEndOf="@+id/mainCreateBtn" />
 
     <Button
-        android:id="@+id/MainWorkoutBtn"
+        android:id="@+id/mainWorkoutBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginBottom="16dp"
         android:onClick="onClickWorkout"
         android:text="@string/workoutBtn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Spinner
-        android:id="@+id/workoutSpinner"
+        android:id="@+id/mainSpinner"
         android:layout_width="130dp"
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:spinnerMode="dialog"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintBottom_toTopOf="@+id/mainCreateBtn"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/mainCreateBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
+        android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:onClick="onClickCreate"
         android:text="@string/createBtn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/mainSkipBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:onClick="onClickSkip"
+        android:text="@string/skipBtn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/mainWorkoutBtn"
+        app:layout_constraintStart_toEndOf="@+id/mainResetBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

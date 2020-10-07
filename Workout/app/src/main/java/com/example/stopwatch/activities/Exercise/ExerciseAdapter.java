@@ -14,13 +14,14 @@ import com.example.stopwatch.models.SetModel;
 import java.util.List;
 
 public class ExerciseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<SetModel> sets;
+    // collection of values to the be set into Views
+    public List<SetModel> sets;
+
     private LayoutInflater mInflater;
 
-    // data is passed into the constructor
     ExerciseAdapter(Context context, List<SetModel> data) {
-        this.mInflater = LayoutInflater.from(context);
         this.sets = data;
+        this.mInflater = LayoutInflater.from(context);
     }
 
     // inflates the row layout from xml when needed
@@ -49,25 +50,27 @@ public class ExerciseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     // stores and recycles views as they are scrolled off screen
-    private class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         EditText reps;
         EditText weight;
         EditText time;
 
         ViewHolder(View itemView) {
             super(itemView);
-            reps = itemView.findViewById(R.id.setReps);
-            weight = itemView.findViewById(R.id.setWeight);
-            time = itemView.findViewById(R.id.setTime);
+            reps = itemView.findViewById(R.id.reps);
+            weight = itemView.findViewById(R.id.weight);
+            time = itemView.findViewById(R.id.time);
         }
     }
 
+    // inserts ViewHolder at specified position
     public void insertAt(int position) {
         sets.add(new SetModel());
         notifyItemInserted(position);
         notifyItemRangeChanged(position, sets.size());
     }
 
+    // removes ViewHolder at specified position
     public void removeAt(int position) {
         sets.remove(position);
         notifyItemRemoved(position);

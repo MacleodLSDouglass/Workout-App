@@ -11,19 +11,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.Exercise.Exercise"
-            android:windowSoftInputMode="stateVisible"
-            ></activity>
-        <activity android:name=".activities.Workout.Workout" />
-        <activity
-            android:name=".activities.MainActivity.MainActivity"
+            android:name=".activities.Main.MainActivity"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.Workout.WorkoutActivity" />
+        <activity
+            android:name=".activities.Exercise.ExerciseActivity"
+            android:windowSoftInputMode="stateVisible"
+            ></activity>
     </application>
 
 </manifest>

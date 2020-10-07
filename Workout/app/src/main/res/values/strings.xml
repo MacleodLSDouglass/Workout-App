@@ -1,22 +1,26 @@
 <resources>
-<!--    Main activity strings-->
-    <string name="app_name">Personalised Stopwatch</string>
+<!--    MainActivity strings    -->
+    <string name="app_name">Workout Timer</string>
     <string name="timerHint">Press Start</string>
     <string name="startBtn">Start</string>
     <string name="resetBtn">Reset</string>
+    <string name="skipBtn">Skip</string>
     <string name="workoutBtn">Workout</string>
-    <string name="readBtn">Read</string>
-    <!--    Workout activity strings-->
+<!--    WorkoutActivity  strings    -->
     <string name="exerciseHint">Exercise</string>
     <string name="setsHint">Sets</string>
     <string name="createBtn">Create</string>
     <string name="timerBtn">Timer</string>
-<!--    Exercise activity strings-->
+<!--    ExerciseActivity  strings   -->
     <string name="repsHint">Reps</string>
-    <string name="weightHint">Weight</string>
-    <string name="timeHint">Time</string>
+    <string name="weightKgHint">Weight(kg)</string>
+    <string name="weightLbsHint">Weight(Lbs)</string>
+    <string name="timeHint">Time (sec)</string>
     <string name="saveBtn">Save</string>
     <string name="deleteBtn">Delete</string>
     <string name="rightBtn">Right</string>
     <string name="leftBtn">Left</string>
+<!--    Notification strings    -->
+    <string name="channel_name">Timer</string>
+    <string name="channel_description">Continues the timer outside the application</string>
 </resources>

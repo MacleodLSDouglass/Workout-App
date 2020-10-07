@@ -1,4 +1,4 @@
-package com.example.stopwatch.activities.MainActivity;
+package com.example.stopwatch.activities.Main;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -17,15 +17,21 @@ import com.example.stopwatch.models.SetModel;
 
 import java.util.List;
 
+// a specific custom Adapter for each RecyclerView in the Application as they require different
+// functionality and have different item types
 public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    LayoutInflater lInf;
-    List<ExerciseModel> workout;
+    // collection of values to be set into ViewHolder Views
+    public List<ExerciseModel> workout;
+
+    private LayoutInflater lInf;
+    private MainAdapter.ClickListener clickListener;
 
     MainAdapter(Context con, List<ExerciseModel> workout) {
-        this.lInf = LayoutInflater.from(con);
         this.workout = workout;
+        this.lInf = LayoutInflater.from(con);
     }
 
+    // called when ViewHolder is created; called number of times equal to getItemCount()
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -34,6 +40,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return new MainAdapter.ViewHolder(view);
     }
 
+    // called after onCreateViewHolder() to bind values to the items
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MainAdapter.ViewHolder nHolder = (MainAdapter.ViewHolder)holder;
@@ -47,30 +54,49 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         lMan.setInitialPrefetchItemCount(4);
 
         nHolder.sets.setLayoutManager(lMan);
-        nHolder.sets.setAdapter(new MainAdapter.ExerciseAdapter(nHolder.sets.getContext(), exercise.sets));
+        MainAdapter.ExerciseAdapter exerciseAdapter = new MainAdapter.ExerciseAdapter(
+                nHolder.sets.getContext(), exercise.sets);
+        nHolder.sets.setAdapter(exerciseAdapter);
     }
 
+    // number of ViewHolders created and size of collection given to RecyclerView
     @Override
     public int getItemCount() {
         return workout.size();
     }
 
-    private class ViewHolder extends RecyclerView.ViewHolder {
+    // custom ViewHolder for unique View
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView exercise;
         RecyclerView sets;
 
         ViewHolder(View itemView) {
             super(itemView);
-            exercise = itemView.findViewById(R.id.exerciseTxt);
-            sets = itemView.findViewById(R.id.exerciseRec);
+            exercise = itemView.findViewById(R.id.name);
+            sets = itemView.findViewById(R.id.mainRec);
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) { clickListener.onClick(getAdapterPosition(), view);}
+
     }
 
-    // create the child adapter for the list of sets for each exercise in the list of exercises
+    public void setOnClickListener(MainAdapter.ClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
+    // functionality implemented in MainActivity class
+    public interface ClickListener {
+        void onClick(int position, View view);
+    }
+
+    // custom child adapter for the list of sets for each exercise in the list of exercises
     // of the workout
-    private class ExerciseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        LayoutInflater lInf;
-        List<SetModel> sets;
+    public  class ExerciseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+        public List<SetModel> sets;
+
+        private LayoutInflater lInf;
 
         ExerciseAdapter(Context con, List<SetModel> sets) {
             this.lInf = LayoutInflater.from(con);
@@ -92,7 +118,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             SetModel set = sets.get(position);
 
             nHolder.reps.setText(Integer.toString(set.reps));
-            nHolder.weight.setText(Integer.toString(set.weight));
+            nHolder.weight.setText(Double.toString(set.weight));
             nHolder.time.setText(Integer.toString(set.time));
         }
 
@@ -108,9 +134,9 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             ViewHolder(View itemView) {
                 super(itemView);
-                reps = itemView.findViewById(R.id.setReps);
-                weight = itemView.findViewById(R.id.setWeight);
-                time = itemView.findViewById(R.id.setTime);
+                reps = itemView.findViewById(R.id.reps);
+                weight = itemView.findViewById(R.id.weight);
+                time = itemView.findViewById(R.id.time);
             }
         }
     }

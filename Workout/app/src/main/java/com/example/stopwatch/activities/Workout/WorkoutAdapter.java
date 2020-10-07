@@ -1,7 +1,6 @@
 package com.example.stopwatch.activities.Workout;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,23 +10,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stopwatch.R;
-import com.example.stopwatch.activities.Exercise.Exercise;
 import com.example.stopwatch.models.ExerciseModel;
 
 import java.util.List;
 
 public class WorkoutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    // collection of values to be set into Views
+    public List<ExerciseModel> workout;
+
     private LayoutInflater lInf;
-    private List<ExerciseModel> workout;
     private ClickListener clickListener;
 
-    // data is passed into the constructor
     public WorkoutAdapter(Context context, List<ExerciseModel> workout) {
-        this.lInf = LayoutInflater.from(context);
         this.workout = workout;
+        this.lInf = LayoutInflater.from(context);
     }
 
-    // inflates the row layout from xml when needed
+    // inflates the row layout from xml based on getItemCount()
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -35,7 +34,7 @@ public class WorkoutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return new WorkoutAdapter.ViewHolder(view);
     }
 
-    // binds the data to the TextView in each row
+    // binds the data to the Views in each row
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         WorkoutAdapter.ViewHolder nHolder = (WorkoutAdapter.ViewHolder) holder;
@@ -52,15 +51,14 @@ public class WorkoutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     // stores and recycles views as they are scrolled off screen
-    private class ViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener {
+    private class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView exercise;
         TextView sets;
 
         ViewHolder(View itemView) {
             super(itemView);
-            exercise = itemView.findViewById(R.id.workoutExercise);
-            sets = itemView.findViewById(R.id.workoutSets);
+            exercise = itemView.findViewById(R.id.name);
+            sets = itemView.findViewById(R.id.sets);
             itemView.setOnClickListener(this);
         }
 

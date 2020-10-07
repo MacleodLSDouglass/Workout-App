@@ -4,7 +4,7 @@
     android:layout_height="wrap_content">
 
     <EditText
-        android:id="@+id/setReps"
+        android:id="@+id/reps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -12,25 +12,25 @@
         android:hint="@string/repsHint"
         android:imeOptions="actionNext"
         android:inputType="number"
-        android:nextFocusRight="@+id/setWeight"
+        android:nextFocusRight="@+id/weight"
         android:selectAllOnFocus="true"
         android:textAlignment="center" />
 
     <EditText
-        android:id="@+id/setWeight"
+        android:id="@+id/weight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:ems="10"
-        android:hint="@string/weightHint"
+        android:hint="@string/weightKgHint"
         android:imeOptions="actionNext"
-        android:inputType="number"
-        android:nextFocusRight="@+id/setTime"
+        android:inputType="numberDecimal"
+        android:nextFocusRight="@+id/time"
         android:selectAllOnFocus="true"
         android:textAlignment="center" />
 
     <EditText
-        android:id="@+id/setTime"
+        android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"

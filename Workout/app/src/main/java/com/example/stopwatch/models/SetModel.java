@@ -2,11 +2,11 @@ package com.example.stopwatch.models;
 
 public class SetModel {
     public int reps;
-    public int weight;
+    public double weight;
     public int time;
 
     public SetModel(){}
-    public SetModel(int reps, int weight, int time) {
+    public SetModel(int reps, double weight, int time) {
         this.reps = reps;
         this.weight = weight;
         this.time = time;

@@ -6,11 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -25,10 +22,9 @@ import com.example.stopwatch.models.WorkoutModel;
 
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 
-public class Exercise extends AppCompatActivity {
-    private static final String TAG = "ExerciseActivity";
+public class ExerciseActivity extends AppCompatActivity {
+    private TextView weightTxt;
     private EditText exerciseEdit;
     private EditText setsEdit;
     private TextView currentIndexDisplay;
@@ -37,23 +33,22 @@ public class Exercise extends AppCompatActivity {
     private RecyclerView recView;
 
     private int currentIndex;
+    private int totalExercises;
     private WorkoutModel workout;
-
+//---Activity Methods-------------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
 
-        // find EditText and TextView objects from XML layout
-        exerciseEdit = findViewById(R.id.exerciseEdit);
-        setsEdit = findViewById(R.id.setsEdit);
-        currentIndexDisplay = findViewById(R.id.exerciseIndex);
+        // find required View objects from XML layout
+        weightTxt = findViewById(R.id.exerciseWeightTxt);
+        exerciseEdit = findViewById(R.id.exerciseExerciseEdit);
+        setsEdit = findViewById(R.id.exerciseSetsEdit);
+        currentIndexDisplay = findViewById(R.id.workoutIndex);
+        recView = findViewById(R.id.mainRec);
 
-        recView = findViewById(R.id.exerciseRec);
-
-        // recover information passed on by previous activity "Workout"
-        currentIndex = getIntent().getIntExtra("index", -1);
-
+        // get the current selected workout from Application.workout
         try {
             Application app = (Application)getApplication();
             workout = app.workout;
@@ -61,10 +56,26 @@ public class Exercise extends AppCompatActivity {
             finish();
         }
 
-        InitialiseRecycler();
-    }
+        // recover index of selected exercise passed on by previous activity "WorkoutActivity" and
+        // find the total number of exercises of the workout
+        currentIndex = getIntent().getIntExtra("index", -1);
+        totalExercises = workout.exercises.size();
 
-    // activates when the save button is clicked. finished activity to go back to "Workout"
+        // set title of Application
+        setTitle(workout.workout);
+
+        // convert weight (from Kg to Lbs and vise versa currently)
+//        weightTxt.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                weightConversion();
+//            }
+//        });
+
+        initialiseRecycler();
+    }
+//---Buttons-------------------------------------------------------------------------------
+    // when the save button is clicked. finish activity to go back to "WorkoutActivity"
     // activity
     public void onClickSave(View view)  {
         if(!save()) {
@@ -80,7 +91,7 @@ public class Exercise extends AppCompatActivity {
         finish();
     }
 
-    // activates when left button is clicked. Populates recycler with values from next exercise to
+    // when left button is clicked. Populates recycler with values from next exercise to
     // the left
     public void onClickLeft(View view) {
         if(!save()) {
@@ -94,10 +105,10 @@ public class Exercise extends AppCompatActivity {
             return;
         }
 
-        InitialiseRecycler();
+        initialiseRecycler();
     }
 
-    // activates when right button is clicked. Populates recycler with values from next exercise to
+    // when right button is clicked. Populates recycler with values from next exercise to
     // the right
     public void onClickRight(View view) {
         if(!save()) {
@@ -112,22 +123,27 @@ public class Exercise extends AppCompatActivity {
             return;
         }
 
-        InitialiseRecycler();
+        initialiseRecycler();
     }
+//---Private Methods-------------------------------------------------------------------------------
 
-    private void InitialiseRecycler() {
-        ExerciseModel exercise = workout.exercises.get(currentIndex);
+    private void initialiseRecycler() {
+        // create new ExerciseModel for putting new values into
+        ExerciseModel exercise = new ExerciseModel();
+        try {
+            exercise = workout.exercises.get(currentIndex);
+        } catch(Exception a) {}
 
         try {
             exerciseEdit.setText(exercise.exercise);
             setsEdit.setText(Integer.toString(exercise.sets.size()));
         } catch(Exception e) {}
 
-        // set current index display box
-        currentIndexDisplay.setText(Integer.toString(currentIndex + 1));
+        // set "currentIndexDisplay" to "currentIndex" out of total amount of exercises
+        currentIndexDisplay.setText(Integer.toString(currentIndex + 1)
+                + "/" + totalExercises);
 
-        // initialise the RecyclerView with required LinearLayoutManager and Adapter, along with
-        // the collection of SetModel objects
+        // initialise the RecyclerView with SetModel objects
         recView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ExerciseAdapter(this, exercise.sets);
         recView.setAdapter(adapter);
@@ -181,7 +197,7 @@ public class Exercise extends AppCompatActivity {
                                             recView.findViewHolderForAdapterPosition(0);
                                     if (vHolder != null) {
                                         View firstView =
-                                                vHolder.itemView.findViewById(R.id.setReps);
+                                                vHolder.itemView.findViewById(R.id.reps);
                                         firstView.requestFocus();
                                         InputMethodManager imm =
                                                 (InputMethodManager) getSystemService
@@ -192,18 +208,16 @@ public class Exercise extends AppCompatActivity {
 
                                     // set the 'final' button of the last EditView to 'done' instead
                                     // of 'next'
-                                    vHolder =
-                                            recView.
-                                                    findViewHolderForAdapterPosition(setCount - 1);
+                                    vHolder = recView
+                                                    .findViewHolderForAdapterPosition(setCount - 1);
                                     if (vHolder != null) {
                                         final EditText lastView =
-                                                vHolder.itemView.findViewById(R.id.setTime);
+                                                vHolder.itemView.findViewById(R.id.time);
                                         lastView.setImeOptions(6);
                                     }
                                 }
                             }, 50);
                         } catch(Exception e) {
-                            Log.e(TAG, e.getMessage());
                             finish();
                         }
                     }
@@ -215,50 +229,70 @@ public class Exercise extends AppCompatActivity {
         exerciseEdit.requestFocus();
     }
 
+    // saves exercise to Application.workout
     private boolean save() {
         // get and check exercise name
         String exerciseName = exerciseEdit.getText().toString();
         if(exerciseName.isEmpty()) {
-            Toast.makeText(this, "Exercise name cannot be empty",
+            Toast.makeText(this, "Exercise name cannot be empty.",
                     Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        try {
-            workout.exercises.get(currentIndex).exercise = exerciseName;
-        } catch (Exception e) {
-            return true;
+        // get and check that there is at least one set
+        if(adapter.sets.isEmpty()) {
+            Toast.makeText(this, "Must have at least one set.",
+                    Toast.LENGTH_SHORT).show();
+            return false;
         }
-        workout.exercises.get(currentIndex).sets = new ArrayList<>();
 
-        // get text from all EditText from all items in the RecyclerView and update the
-        // appropriate objects in the existing application.workout object that can be accessed
-        // from anywhere in the application
-        for (int a = 0; a < recView.getChildCount(); a++) {
+        // create new ExerciseModel to then populate with the user inputs
+        ExerciseModel exercise = new ExerciseModel();
+        exercise.exercise = exerciseName;
+        exercise.sets = new ArrayList<>();
+        for (int a = 0; a < adapter.getItemCount(); a++) {
             RecyclerView.ViewHolder vHolder = recView.findViewHolderForAdapterPosition(a);
 
             if (vHolder != null) {
-                EditText reps = vHolder.itemView.findViewById(R.id.setReps);
-                EditText weight = vHolder.itemView.findViewById(R.id.setWeight);
-                EditText time = vHolder.itemView.findViewById(R.id.setTime);
+                EditText repsEdit = vHolder.itemView.findViewById(R.id.reps);
+                EditText weightEdit = vHolder.itemView.findViewById(R.id.weight);
+                EditText timeEdit = vHolder.itemView.findViewById(R.id.time);
 
-                workout.exercises.get(currentIndex).sets.add(a, new SetModel(
-                        Integer.parseInt(reps.getText().toString()),
-                        Integer.parseInt(weight.getText().toString()),
-                        Integer.parseInt(time.getText().toString())));
+                int time = Integer.parseInt(timeEdit.getText().toString());
+                if(time == 0) {
+                    Toast.makeText(this, "All sets must have a time.",
+                            Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+
+                exercise.sets.add(a, new SetModel(
+                        Integer.parseInt(repsEdit.getText().toString()),
+                        Double.parseDouble(weightEdit.getText().toString()),
+                        time));
             }
+        }
+
+        // attempt to save new ExerciseModel to Application.workout
+        try {
+            workout.exercises.set(currentIndex, exercise);
+        } catch (Exception e) {
+            Toast.makeText(this, "Something went wrong.",
+                    Toast.LENGTH_SHORT).show();
+            return false;
         }
 
         toFile();
         return true;
     }
 
+    // deletes exercise from Application.workout
     private boolean delete() {
         workout.exercises.remove(currentIndex);
         toFile();
         return true;
     }
 
+    // saves Application.workout to file
     private void toFile() {
         final String FILENAME = workout.workout + ".csv";
 
@@ -280,8 +314,33 @@ public class Exercise extends AppCompatActivity {
         // file
         try (FileOutputStream fos = this.openFileOutput(FILENAME, this.MODE_PRIVATE)) {
             fos.write(toWrite.getBytes());
-        } catch (Exception e)  {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        } catch (Exception e)  { }
+    }
+
+    // converts weight metric units
+    private void weightConversion() {
+        String currentMetric = weightTxt.getText().toString();
+        switch (currentMetric) {
+            case "Weight(Lbs)":
+                for(int a = 0; a < adapter.getItemCount(); a++) {
+                    ExerciseAdapter.ViewHolder holder = (ExerciseAdapter.ViewHolder)
+                            recView.findViewHolderForAdapterPosition(a);
+                    if(holder == null) {return;}
+                    Double weight = Double.parseDouble(holder.weight.getText().toString()) / 2.2;
+                    holder.weight.setText(weight.toString());
+                    weightTxt.setText(R.string.weightKgHint);
+                }
+                break;
+            default:
+                for(int a = 0; a < adapter.getItemCount(); a++) {
+                    ExerciseAdapter.ViewHolder holder = (ExerciseAdapter.ViewHolder)
+                            recView.findViewHolderForAdapterPosition(a);
+                    if(holder == null) {return;}
+                    Double weight = Double.parseDouble(holder.weight.getText().toString()) * 2.2;
+                    holder.weight.setText(weight.toString());
+                    weightTxt.setText(R.string.weightLbsHint);
+                }
+                break;
         }
     }
 }
