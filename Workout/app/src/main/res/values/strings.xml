@@ -1,7 +1,7 @@
 <resources>
 <!--    MainActivity strings    -->
     <string name="app_name">Workout Timer</string>
-    <string name="timerHint">Press Start</string>
+    <string name="timerHint">Click Start</string>
     <string name="startBtn">Start</string>
     <string name="resetBtn">Reset</string>
     <string name="skipBtn">Skip</string>
